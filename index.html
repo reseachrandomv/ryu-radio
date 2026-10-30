@@ -27,17 +27,35 @@ iframe{border:0;border-radius:12px;width:100%;display:block}
 .arch details{background:var(--card);border-radius:14px;padding:12px 16px;margin-bottom:10px;border:1px solid #ffffff12}
 .arch summary{cursor:pointer;font-weight:600}.arch li{color:var(--mut);margin:4px 0}
 footer{text-align:center;color:var(--mut);font-size:13px;padding:30px 0 40px;border-top:1px solid #ffffff12;margin-top:40px}
-</style></head><body><div class="wrap">
+
+html{scroll-behavior:smooth}body{--a1:var(--blue);--a2:var(--pur);transition:background .6s}
+body[data-mood=chill]{--a1:#3ad1ff;--a2:#2f7bff}body[data-mood=hype]{--a1:#ff5fd2;--a2:#ff2e88}body[data-mood=love]{--a1:#ff7a9c;--a2:#ff3d6e}body[data-mood=gaming]{--a1:#b46bff;--a2:#6a2cff}
+#fx{position:fixed;inset:0;z-index:-1;pointer-events:none}.wrap{position:relative;z-index:1;padding-bottom:90px}
+#glow{position:fixed;width:380px;height:380px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,color-mix(in srgb,var(--a1) 22%,transparent),transparent 65%);transform:translate(-50%,-50%);display:none}
+@media(hover:hover){#glow{display:block}}
+.moods{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}.moods button{background:#ffffff0d;color:var(--txt);border:1px solid #ffffff22;border-radius:99px;padding:7px 14px;font-size:13px;cursor:pointer}
+.moods button.on{border-color:var(--a1);box-shadow:0 0 14px var(--a1);color:var(--a1)}
+.surp{margin-top:10px;background:linear-gradient(90deg,var(--a1),var(--a2));color:#07061a;border:0;border-radius:99px;padding:12px 22px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 0 22px var(--a1);transition:transform .2s}.surp:active{transform:scale(.95)}
+.card{transition:box-shadow .3s,border-color .3s;cursor:pointer}.card.sel{border-color:var(--a1);box-shadow:0 0 22px var(--a1)}
+iframe{background:linear-gradient(90deg,#1a1745 0,#2a2466 50%,#1a1745 100%);background-size:200% 100%;animation:sk 1.4s infinite linear}@keyframes sk{to{background-position:-200% 0}}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+#np{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#07061ae6;backdrop-filter:blur(10px);border-top:1px solid var(--a1);box-shadow:0 -6px 24px color-mix(in srgb,var(--a1) 35%,transparent);padding:8px 12px;transform:translateY(100%);transition:transform .4s}#np.show{transform:none}
+#np .in{max-width:960px;margin:auto;display:flex;gap:10px;align-items:center}#np iframe{flex:1;height:80px}#np button{background:none;border:0;color:var(--mut);font-size:20px;cursor:pointer}
+.sotw,.filters button.on{box-shadow:0 0 30px color-mix(in srgb,var(--a1) 40%,transparent)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style></head><body data-mood="chill"><canvas id="fx"></canvas><div id="glow"></div><div class="wrap">
 <header><svg width="150" height="36" viewBox="0 0 150 36" aria-label="Ryu Radio logo"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#3ad1ff"/><stop offset="1" stop-color="#ff5fd2"/></linearGradient></defs><polygon points="18,2 33,10 33,26 18,34 3,26 3,10" fill="none" stroke="url(#g)" stroke-width="2.5"/><path d="M13 11v14M13 11h6a4 4 0 010 8h-6M19 19l5 6" stroke="url(#g)" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="42" y="24" font-family="system-ui,sans-serif" font-weight="800" font-size="17" fill="url(#g)" letter-spacing="1.5">RYU RADIO</text></svg>
 <nav><a href="#picks">Picks</a><a href="#archive">Archive</a></nav></header>
 <div class="hero"><span class="tag">Weekly drop · <span id="wk"></span></span><h1>RYU RADIO</h1>
 <p>Late-night R&amp;B, anime soundtracks and lobby-ready bangers — hand-picked by Ryu every Monday. Queue it up before your next match.</p>
-<div class="eq"><span></span><span style="animation-delay:.2s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.1s"></span><span style="animation-delay:.3s"></span><span style="animation-delay:.5s"></span><span style="animation-delay:.15s"></span></div></div>
+<div class="eq"><span></span><span style="animation-delay:.2s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.1s"></span><span style="animation-delay:.3s"></span><span style="animation-delay:.5s"></span><span style="animation-delay:.15s"></span></div>
+<div class="moods" id="moods"></div><button class="surp" id="surp">🎲 Surprise me</button></div>
 <section><h2>Song of the Week</h2><div class="sotw" id="sotw"></div></section>
 <section id="picks"><h2>This Week's Picks</h2><div class="filters" id="f"></div><div class="grid" id="grid"></div></section>
 <section id="archive" class="arch"><h2>Past Weeks</h2><div id="past"></div></section>
 <footer>Ryu Radio is a fan-made playlist page by Ryu. Not affiliated with Spotify. Players are official Spotify embeds; all music belongs to its artists.</footer>
 </div>
+<div id="np"><div class="in"><iframe id="npf" title="Now playing" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><button id="npx" aria-label="Close">✕</button></div></div>
 <script>
 const emb=id=>`https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0`;
 const vibes=["all","chill","hype","love","gaming"];let cur="all",data;
@@ -45,10 +63,28 @@ fetch("picks.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{data=d;render(
 function render(){const w=data.weeks.find(x=>x.week===data.currentWeek)||data.weeks[0];
 document.getElementById("wk").textContent=new Date(w.week+"T00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 const s=w.tracks.find(t=>t.id===w.songOfTheWeek)||w.tracks[0];
-document.getElementById("sotw").innerHTML=`<div class="k">★ Ryu's #1 this week</div><h3>${s.title}</h3><div class="a">${s.artist}</div><iframe src="${emb(s.id)}" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="${s.title}"></iframe>`;
+document.getElementById("sotw").innerHTML=`<div class="k">★ Ryu's #1 this week</div><h3>${s.title}</h3><div class="a">${s.artist}</div><iframe src="${emb(s.id)}" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="${s.title}"></iframe>`;
 const f=document.getElementById("f");f.innerHTML=vibes.map(v=>`<button class="${v===cur?'on':''}" data-v="${v}">${v==="all"?"All":"#"+v}</button>`).join("");
 f.querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.v;render()});
-document.getElementById("grid").innerHTML=w.tracks.filter(t=>cur==="all"||t.vibes.includes(cur)).map(t=>`<div class="card"><iframe src="${emb(t.id)}" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="${t.title}"></iframe><div class="chips">${t.vibes.map(v=>`<span class="chip">#${v}</span>`).join("")}</div></div>`).join("");
+document.getElementById("grid").innerHTML=w.tracks.filter(t=>cur==="all"||t.vibes.includes(cur)).map(t=>`<div class="card" data-id="${t.id}"><iframe src="${emb(t.id)}" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="${t.title}"></iframe><div class="chips">${t.vibes.map(v=>`<span class="chip">#${v}</span>`).join("")}</div></div>`).join("");
 const past=data.weeks.filter(x=>x!==w);
 document.getElementById("past").innerHTML=past.length?past.map(p=>`<details><summary>Week of ${p.week} — ${p.title||""}</summary><ul>${p.tracks.map(t=>`<li><a href="https://open.spotify.com/track/${t.id}" target="_blank" rel="noopener">${t.title}</a> · ${t.artist}</li>`).join("")}</ul></details>`).join(""):`<p style="color:var(--mut)">This is week one — past drops will stack up here every Monday.</p>`;}
+</script>
+<script>
+(()=>{const c=document.getElementById("fx"),x=c.getContext("2d");let W,H,P=[];const R=()=>{W=c.width=innerWidth;H=c.height=innerHeight;P=Array.from({length:W<700?35:70},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.5,v:Math.random()*.4+.1}))};R();addEventListener("resize",R);
+const col=()=>getComputedStyle(document.body).getPropertyValue("--a1").trim()||"#3ad1ff";let t=0;
+(function f(){t+=.02;x.clearRect(0,0,W,H);const k=col();x.fillStyle=k;x.globalAlpha=.6;P.forEach(p=>{p.y-=p.v;if(p.y<0)p.y=H;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});
+const n=W<700?32:64,bw=W/n;x.globalAlpha=.18;for(let i=0;i<n;i++){const h=(Math.sin(t*2+i*.45)*.5+.5)*(Math.sin(t*.7+i*.13)*.5+.5)*H*.22+6;x.fillRect(i*bw+1,H-h,bw-2,h)}x.globalAlpha=1;requestAnimationFrame(f)})()})();
+const g=document.getElementById("glow");addEventListener("pointermove",e=>{g.style.left=e.clientX+"px";g.style.top=e.clientY+"px"});
+const M=[["chill","🌊 Chill"],["hype","🔥 Hype"],["love","💗 Love"],["gaming","🎮 Gaming"]],mb=document.getElementById("moods");
+mb.innerHTML=M.map(([v,l])=>`<button data-m="${v}">${l}</button>`).join("");
+function mood(m){document.body.dataset.mood=m;mb.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));try{localStorage.ryuMood=m}catch(e){}}
+mb.onclick=e=>{const b=e.target.closest("button");if(b)mood(b.dataset.m)};mood((()=>{try{return localStorage.ryuMood}catch(e){}})()||"chill");
+const np=document.getElementById("np"),npf=document.getElementById("npf");document.getElementById("npx").onclick=()=>np.classList.remove("show");
+function play(id){npf.src=emb(id);np.classList.add("show");document.querySelectorAll(".card").forEach(c=>c.classList.toggle("sel",c.dataset.id===id))}
+document.getElementById("grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)play(c.dataset.id)});
+document.getElementById("surp").onclick=()=>{if(!data)return;cur="all";render();const cs=[...document.querySelectorAll(".card")],c=cs[Math.floor(Math.random()*cs.length)];c.classList.add("in");c.scrollIntoView({behavior:"smooth",block:"center"});play(c.dataset.id)};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+const obs=()=>document.querySelectorAll("section,.card").forEach(el=>{if(!el.classList.contains("rv")){el.classList.add("rv");io.observe(el)}});
+new MutationObserver(obs).observe(document.getElementById("grid"),{childList:true});obs();
 </script></body></html>
