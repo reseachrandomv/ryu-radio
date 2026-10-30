@@ -1,0 +1,21 @@
+{
+  "currentWeek": "2026-11-02",
+  "weeks": [
+    {
+      "week": "2026-11-02",
+      "title": "Neon Night Drop",
+      "songOfTheWeek": "5IgjP7X4th6nMNDh4akUHb",
+      "tracks": [
+        {"id": "5IgjP7X4th6nMNDh4akUHb", "title": "Under The Influence", "artist": "Chris Brown", "vibes": ["love", "chill"]},
+        {"id": "4iZ4pt7kvcaH6Yo8UoZ4s2", "title": "Snooze", "artist": "SZA", "vibes": ["love", "chill"]},
+        {"id": "2LBqCSwhJGcFQeTHMVGwy3", "title": "Die For You", "artist": "The Weeknd", "vibes": ["love", "chill"]},
+        {"id": "1zVsw1SqQKgtzE4aqmE8nE", "title": "Idol", "artist": "YOASOBI", "vibes": ["hype", "gaming"]},
+        {"id": "0VjIjW4GlUZAMYd2vXMi3b", "title": "Blinding Lights", "artist": "The Weeknd", "vibes": ["hype", "gaming"]},
+        {"id": "3A4FRzgve9BjfKbvVXRIFO", "title": "Sparkle (movie ver.)", "artist": "RADWIMPS", "vibes": ["chill", "love"]},
+        {"id": "1Qrg8KqiBpW07V7PNxwwwL", "title": "Kill Bill", "artist": "SZA", "vibes": ["hype", "gaming"]},
+        {"id": "1BxfuPKGuaTgP7aM0Bbdwr", "title": "Cruel Summer", "artist": "Taylor Swift", "vibes": ["hype", "love"]},
+        {"id": "3w3y8KPTfNeOKPiqUTakBh", "title": "Locked out of Heaven", "artist": "Bruno Mars", "vibes": ["hype", "gaming"]}
+      ]
+    }
+  ]
+}
